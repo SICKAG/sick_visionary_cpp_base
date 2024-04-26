@@ -1,0 +1,41 @@
+= SICK Visionary C++ base changelog
+
+This document provides a summary of all notable changes of the Visionary C++ base library.
+For a detailed view of what was changed, please refer to the repository's commit history.
+
+This project utilizes semantic versioning.
+
+
+== 1.0.0
+
+=== Changed
+
+* AutoIp functionality reimplemented
+* *CMake*: fixed warning as error handling overrides are now working, added exclusions for gcc11
+
+=== Fixed
+
+* CoLa2 session timeout handling
+
+=== Added
+
+* VisionaryType for improved device selection
+* ParameterReader now has support for fixed string
+
+=== Removed
+
+=== Known Issues
+
+=== Compatibility
+
+* *Visual Studio*: needs to be 15.0 or later
+* *gcc*: needs to be version 8.1 or later
+
+=== Supported devices
+
+* Visionary-T Mini CX (V3S105-1AAAAAA) 2.1.0
+* Visionary-S CX (V3S102-1AAAAAA and V3S102-1AABAAB) 6.0.0
+
+== forked from sick_visionary_cpp_shared
+
+* due to incompatible changes regarding device selection
