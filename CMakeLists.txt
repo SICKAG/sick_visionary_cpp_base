@@ -9,7 +9,7 @@ message(STATUS sick_visionary_cpp_base)
 project(sick_visionary_cpp_base
         VERSION 1.0.0
         DESCRIPTION "Visionary access via network"
-        HOMEPAGE_URL "https://github.com/SICKAG/cpp_base"
+        HOMEPAGE_URL "https://github.com/SICKAG/sick_visionary_cpp_base"
         LANGUAGES CXX)
 
 
@@ -17,7 +17,6 @@ project(sick_visionary_cpp_base
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 option(VISIONARY_BASE_ENABLE_AUTOIP "Enables the SOPAS Auto-IP device scan code (needs boost's ptree)" ON)
 option(VISIONARY_BASE_ENABLE_UNITTESTS "Enables google-test based unit tests" OFF)
-option(VISIONARY_BASE_ENABLE_AUTOIP "Enables the SOPAS Auto-IP device scan code (needs boost's ptree)" ON)
 option(VISIONARY_BASE_INTERNAL_USE_CONAN "(internal) Build using Conan package manager" OFF)
 option(VISIONARY_BASE_USE_BUNDLED_BOOST "Uses the bundled Boost implementation" ON)
 
