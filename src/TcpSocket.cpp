@@ -165,10 +165,13 @@ int TcpSocket::connect(const std::string& ipaddr, std::uint16_t port, std::chron
     }
 #else
     {
+      int       selectRet = ret;
+
       int       so_error;
       socklen_t len = sizeof(so_error);
       ::getsockopt(m_pSockRecord->socket(), SOL_SOCKET, SO_ERROR, &ret, &len);
-      if (ret != 0)
+      
+      if (selectRet <= 0 || ret != 0)
       {
         ::close(m_pSockRecord->socket());
         m_pSockRecord->invalidate();
