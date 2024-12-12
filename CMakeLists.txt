@@ -9,7 +9,7 @@ message(STATUS sick_visionary_cpp_base)
 project(sick_visionary_cpp_base
         VERSION 1.0.0
         DESCRIPTION "Visionary access via network"
-        HOMEPAGE_URL "https://github.com/SICKAG/cpp_base"
+        HOMEPAGE_URL "https://github.com/SICKAG/sick_visionary_cpp_base"
         LANGUAGES CXX)
 
 
@@ -17,7 +17,6 @@ project(sick_visionary_cpp_base
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 option(VISIONARY_BASE_ENABLE_AUTOIP "Enables the SOPAS Auto-IP device scan code (needs boost's ptree)" ON)
 option(VISIONARY_BASE_ENABLE_UNITTESTS "Enables google-test based unit tests" OFF)
-option(VISIONARY_BASE_ENABLE_AUTOIP "Enables the SOPAS Auto-IP device scan code (needs boost's ptree)" ON)
 option(VISIONARY_BASE_INTERNAL_USE_CONAN "(internal) Build using Conan package manager" OFF)
 option(VISIONARY_BASE_USE_BUNDLED_BOOST "Uses the bundled Boost implementation" ON)
 
@@ -109,7 +108,7 @@ endif()
 target_sources(${TARGET_NAME}
   PUBLIC
   PRIVATE
-    ${VISIONARY_BASE_SRCS} )
+    ${VISIONARY_BASE_SRCS} ${VISIONARY_BASE_PUBLIC_HEADERS})
 
 target_include_directories(${TARGET_NAME}
   PUBLIC
@@ -211,28 +210,31 @@ target_compile_options(${TARGET_NAME} PRIVATE ${VISIONARY_BASE_CFLAGS})
 
 # Installation
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+configure_package_config_file(cmake/${PROJECT_NAME}Config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    COMPATIBILITY SameMajorVersion)
 
 install(TARGETS ${TARGET_NAME}
-    LIBRARY
-      DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE
-      DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME
-      DESTINATION ${CMAKE_INSTALL_BINDIR}
-    PUBLIC_HEADER
-      DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    INCLUDES
-      DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    COMPONENT
-      Development
-)
-
+    EXPORT ${PROJECT_NAME}Targets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(
-  FILES
-    ${VISIONARY_BASE_PUBLIC_HEADERS}
-    TYPE
-      INCLUDE
-)
+  EXPORT ${PROJECT_NAME}Targets
+  FILE ${PROJECT_NAME}Targets.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+  NAMESPACE ${PROJECT_NAME}::)
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
+install(FILES ${VISIONARY_BASE_PUBLIC_HEADERS} DESTINATION include/${PROJECT_NAME})
 
 # Unit tests
 # find GoogleTest, using 'non-standard' form of e.g. CONAN packages
