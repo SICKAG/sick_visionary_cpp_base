@@ -6,6 +6,41 @@ For a detailed view of what was changed, please refer to the repository's commit
 This project utilizes semantic versioning.
 
 
+== 1.1.0
+
+=== Changed
+
+* updated minimum required cmake version to 3.24 (FILE_SET, WARNING_AS_ERROR feature)
+* scoped public header files to allow clean export targets
+
+=== Fixed
+
+* Loss of frames received via UDP
+* https://github.com/SICKAG/sick_visionary_samples/issues/6[Missing .lib File When Compiling Shared Library in MSVC (Visual Studio 2022) Environment Issue]
+* TcpSocket timeout not captured in linux
+
+=== Added
+
+* aliased namespace target to allow equal consumption of library from package
+* generate package config and install export targets to allow consumption with find_package
+* 4MB buffer internal to network stack in Netlink.cpp
+* *CMake*: Export symbols on windows when build as shared lib
+
+=== Removed
+
+=== Known Issues
+
+=== Compatibility
+
+* *Visual Studio*: needs to be 2022 Toolset 19.x or later
+* *gcc*: needs to be version 11.1 or later
+
+=== Supported devices
+
+* Visionary-T Mini CX (V3S105-1AAAAAA) 2.x, 3.x
+* Visionary-S CX (V3S102-1AAAAAA and V3S102-1AABAAB) 6.x
+
+
 == 1.0.0
 
 === Changed

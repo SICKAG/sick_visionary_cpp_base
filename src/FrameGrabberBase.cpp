@@ -58,7 +58,7 @@ void FrameGrabberBase::run()
   {
     if (!m_connectedThreadPrivate)
     {
-      std::cerr << "Connection lost, reconnecting" << std::endl;
+      std::cerr << "Connection lost, reconnecting" << '\n';
 
       m_pDataStreamThreadPrivate->close();
 
@@ -67,7 +67,7 @@ void FrameGrabberBase::run()
 
       if (!m_connectedThreadPrivate)
       {
-        std::cerr << "Failed to connect to " << m_hostnameThreadRead << ':' << m_portThreadRead << std::endl;
+        std::cerr << "Failed to connect to " << m_hostnameThreadRead << ':' << m_portThreadRead << '\n';
         std::this_thread::sleep_for(std::chrono::seconds(1));
       }
     }

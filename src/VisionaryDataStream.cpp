@@ -92,7 +92,7 @@ bool VisionaryDataStream::getNextFrame()
   // Read package length
   if (m_pTransport->read(buffer, sizeof(std::uint32_t)) < static_cast<TcpSocket::recv_return_t>(sizeof(std::uint32_t)))
   {
-    std::cout << "Received less than the required 4 package length bytes." << std::endl;
+    std::cout << "Received less than the required 4 package length bytes." << '\n';
     return false;
   }
 
@@ -100,7 +100,7 @@ bool VisionaryDataStream::getNextFrame()
 
   if (packageLength < 3u)
   {
-    std::cout << "Invalid package length " << packageLength << ". Should be at least 3" << std::endl;
+    std::cout << "Invalid package length " << packageLength << ". Should be at least 3" << '\n';
     return false;
   }
 
@@ -109,7 +109,7 @@ bool VisionaryDataStream::getNextFrame()
   if (m_pTransport->read(buffer, remainingBytesToReceive)
       < static_cast<ITransport::recv_return_t>(remainingBytesToReceive))
   {
-    std::cout << "Received less than the required " << remainingBytesToReceive << " bytes." << std::endl;
+    std::cout << "Received less than the required " << remainingBytesToReceive << " bytes." << '\n';
     return false;
   }
 
@@ -118,12 +118,12 @@ bool VisionaryDataStream::getNextFrame()
   const auto packetType      = readUnalignBigEndian<std::uint8_t>(buffer.data() + 2);
   if (protocolVersion != 0x001)
   {
-    std::cout << "Received unknown protocol version " << protocolVersion << "." << std::endl;
+    std::cout << "Received unknown protocol version " << protocolVersion << "." << '\n';
     return false;
   }
   if (packetType != 0x62)
   {
-    std::cout << "Received unknown packet type " << packetType << "." << std::endl;
+    std::cout << "Received unknown packet type " << packetType << "." << '\n';
     return false;
   }
   return parseSegmentBinaryData(buffer.begin() + 3, buffer.size() - 3u); // Skip protocolVersion and packetType
@@ -133,7 +133,7 @@ bool VisionaryDataStream::parseSegmentBinaryData(std::vector<std::uint8_t>::iter
 {
   if (m_dataHandler == nullptr)
   {
-    std::cout << "No datahandler is set -> cant parse blob data" << std::endl;
+    std::cout << "No datahandler is set -> cant parse blob data" << '\n';
     return false;
   }
   bool result               = false;
@@ -143,7 +143,7 @@ bool VisionaryDataStream::parseSegmentBinaryData(std::vector<std::uint8_t>::iter
 
   if (remainingSize < 4)
   {
-    std::cout << "Received not enough data to parse segment description. Connection issues?" << std::endl;
+    std::cout << "Received not enough data to parse segment description. Connection issues?" << '\n';
     return false;
   }
 
@@ -162,12 +162,12 @@ bool VisionaryDataStream::parseSegmentBinaryData(std::vector<std::uint8_t>::iter
   const std::size_t totalSegmentDescriptionSize     = static_cast<std::size_t>(numSegments * segmentDescriptionSize);
   if (remainingSize < totalSegmentDescriptionSize)
   {
-    std::cout << "Received not enough data to parse segment description. Connection issues?" << std::endl;
+    std::cout << "Received not enough data to parse segment description. Connection issues?" << '\n';
     return false;
   }
   if (numSegments < 3)
   {
-    std::cout << "Invalid number of segments. Connection issues?" << std::endl;
+    std::cout << "Invalid number of segments. Connection issues?" << '\n';
     return false;
   }
   for (std::uint16_t i = 0; i < numSegments; i++)
@@ -184,7 +184,7 @@ bool VisionaryDataStream::parseSegmentBinaryData(std::vector<std::uint8_t>::iter
   const std::size_t xmlSize = offset[1] - offset[0];
   if (remainingSize < xmlSize)
   {
-    std::cout << "Received not enough data to parse xml Description. Connection issues?" << std::endl;
+    std::cout << "Received not enough data to parse xml Description. Connection issues?" << '\n';
     return false;
   }
   remainingSize -= xmlSize;
@@ -197,7 +197,7 @@ bool VisionaryDataStream::parseSegmentBinaryData(std::vector<std::uint8_t>::iter
     std::size_t binarySegmentSize = offset[2] - offset[1];
     if (remainingSize < binarySegmentSize)
     {
-      std::cout << "Received not enough data to parse binary Segment. Connection issues?" << std::endl;
+      std::cout << "Received not enough data to parse binary Segment. Connection issues?" << '\n';
       return false;
     }
     result = m_dataHandler->parseBinaryData((itBuf + static_cast<ItBufDifferenceType>(offset[1])), binarySegmentSize);

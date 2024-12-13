@@ -129,7 +129,7 @@ bool VisionaryTMiniData::parseBinaryData(std::vector<uint8_t>::iterator itBuf, s
 {
   if (m_cameraParams.height < 1 || m_cameraParams.width < 1)
   {
-    std::cout << __FUNCTION__ << ": Invalid image size" << std::endl;
+    std::cout << __FUNCTION__ << ": Invalid image size" << '\n';
     return false;
   }
   size_t dataSetslength = 0;
@@ -145,7 +145,7 @@ bool VisionaryTMiniData::parseBinaryData(std::vector<uint8_t>::iterator itBuf, s
 
     if (remainingSize < headerSize)
     {
-      std::cout << "Malformed data. Did not receive enough data to parse header of binary segment" << std::endl;
+      std::cout << "Malformed data. Did not receive enough data to parse header of binary segment" << '\n';
       return false;
     }
     remainingSize -= headerSize;
@@ -157,7 +157,7 @@ bool VisionaryTMiniData::parseBinaryData(std::vector<uint8_t>::iterator itBuf, s
     dataSetslength += length;
     if (dataSetslength > size)
     {
-      std::cout << "Malformed data, length in depth map header does not match package size." << std::endl;
+      std::cout << "Malformed data, length in depth map header does not match package size." << '\n';
       return false;
     }
     itBuf += sizeof(uint32_t);
@@ -175,8 +175,7 @@ bool VisionaryTMiniData::parseBinaryData(std::vector<uint8_t>::iterator itBuf, s
       const size_t extendedHeaderSize = 4u + 1u + 1u; // Framenumber(32bit) + dataQuality(8bit) + deviceStatus(8bit)
       if (remainingSize < extendedHeaderSize)
       {
-        std::cout << "Malformed data. Did not receive enough data to parse extended header of binary segment"
-                  << std::endl;
+        std::cout << "Malformed data. Did not receive enough data to parse extended header of binary segment" << '\n';
         return false;
       }
       remainingSize -= extendedHeaderSize;
@@ -200,7 +199,7 @@ bool VisionaryTMiniData::parseBinaryData(std::vector<uint8_t>::iterator itBuf, s
     const auto imageSetSize = (numBytesDistance + numBytesIntensity + numBytesState);
     if (remainingSize < imageSetSize)
     {
-      std::cout << "Malformed data. Did not receive enough data to parse images of binary segment" << std::endl;
+      std::cout << "Malformed data. Did not receive enough data to parse images of binary segment" << '\n';
       return false;
     }
     remainingSize -= imageSetSize;
@@ -238,7 +237,7 @@ bool VisionaryTMiniData::parseBinaryData(std::vector<uint8_t>::iterator itBuf, s
     const auto footerSize = (4u + 4u); // CRC(32bit) + LengthCopy(32bit)
     if (remainingSize < footerSize)
     {
-      std::cout << "Malformed data. Did not receive enough data to parse footer of binary segment" << std::endl;
+      std::cout << "Malformed data. Did not receive enough data to parse footer of binary segment" << '\n';
       return false;
     }
 
@@ -253,7 +252,7 @@ bool VisionaryTMiniData::parseBinaryData(std::vector<uint8_t>::iterator itBuf, s
     if (length != lengthCopy)
     {
       std::cout << "Malformed data, length in header(" << length << ") does not match package size(" << lengthCopy
-                << ")." << std::endl;
+                << ")." << '\n';
       return false;
     }
   }

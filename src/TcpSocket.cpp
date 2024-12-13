@@ -164,16 +164,17 @@ int TcpSocket::connect(const std::string& ipaddr, std::uint16_t port, std::chron
       return -1;
     }
 #else
+    if (ret <= 0)
     {
-      int       so_error;
-      socklen_t len = sizeof(so_error);
-      ::getsockopt(m_pSockRecord->socket(), SOL_SOCKET, SO_ERROR, &ret, &len);
-      if (ret != 0)
-      {
-        ::close(m_pSockRecord->socket());
-        m_pSockRecord->invalidate();
-        return ret;
-      }
+      ::close(m_pSockRecord->socket());
+      m_pSockRecord->invalidate();
+      return -1;
+    }
+    if (FD_ISSET(m_pSockRecord->socket(), &setE))
+    {
+      ::close(m_pSockRecord->socket());
+      m_pSockRecord->invalidate();
+      return -1;
     }
 #endif
   }
@@ -314,13 +315,13 @@ int TcpSocket::getLastError()
         m_pSockRecord->socket(), SOL_SOCKET, SO_ERROR, reinterpret_cast<char*>(&error_code), &error_code_size)
       != 0)
   {
-    std::cout << "Error getting error code" << std::endl;
+    std::cout << "Error getting error code" << '\n';
   }
 #else
   socklen_t error_code_size = sizeof error_code;
   if (::getsockopt(m_pSockRecord->socket(), SOL_SOCKET, SO_ERROR, &error_code, &error_code_size) != 0)
   {
-    std::cout << "Error getting error code" << std::endl;
+    std::cout << "Error getting error code" << '\n';
   }
 #endif
   return error_code;

@@ -167,20 +167,20 @@ bool VisionaryControl::logout()
 
 DeviceIdent VisionaryControl::getDeviceIdent()
 {
-    const CoLaCommand command = CoLaParameterWriter(CoLaCommandType::READ_VARIABLE, "DeviceIdent").build();
-    CoLaCommand response = sendCommand(command);
-    if (response.getError() == CoLaError::OK)
-    {
-      CoLaParameterReader reader(response);
-      DeviceIdent         deviceIdent;
-      deviceIdent.name    = reader.readFlexString();
-      deviceIdent.version = reader.readFlexString();
-      return deviceIdent;
-    }
-    else
-    {
-        return DeviceIdent{"", ""};
-    }
+  const CoLaCommand command  = CoLaParameterWriter(CoLaCommandType::READ_VARIABLE, "DeviceIdent").build();
+  CoLaCommand       response = sendCommand(command);
+  if (response.getError() == CoLaError::OK)
+  {
+    CoLaParameterReader reader(response);
+    DeviceIdent         deviceIdent;
+    deviceIdent.name    = reader.readFlexString();
+    deviceIdent.version = reader.readFlexString();
+    return deviceIdent;
+  }
+  else
+  {
+    return DeviceIdent{"", ""};
+  }
 }
 
 bool VisionaryControl::startAcquisition()

@@ -199,7 +199,7 @@ int UdpSocket::getLastError()
   socklen_t error_code_size = sizeof error_code;
   if (::getsockopt(m_pSockRecord->socket(), SOL_SOCKET, SO_ERROR, &error_code, &error_code_size) != 0)
   {
-    std::cout << "Error getting error code" << std::endl;
+    std::cout << "Error getting error code" << '\n';
   }
 
 #endif
