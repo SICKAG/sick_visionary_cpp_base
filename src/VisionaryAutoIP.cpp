@@ -105,7 +105,7 @@ std::vector<DeviceInfo> VisionaryAutoIP::scan(void)
     if ((now - startTime) > std::chrono::milliseconds(AUTOIP_TIMEOUT))
     {
       if (deviceList.size() == 0)
-        std::cerr << __FUNCTION__ << " Timeout" << std::endl;
+        std::cerr << __FUNCTION__ << " Timeout" << '\n';
       break;
     }
     if (m_link.read(receiveBuffer) > 16) // 16 bytes minsize
@@ -159,7 +159,7 @@ std::vector<DeviceInfo> VisionaryAutoIP::scan(void)
         }
         else
         {
-          std::cerr << __FUNCTION__ << "Received invalid AutoIP Packet" << std::endl;
+          std::cerr << __FUNCTION__ << "Received invalid AutoIP Packet" << '\n';
         }
       }
     }
@@ -618,7 +618,7 @@ bool VisionaryAutoIP::assign(const std::string& destinationMac,
     const std::chrono::steady_clock::time_point now(std::chrono::steady_clock::now());
     if ((now - startTime) > std::chrono::milliseconds(AUTOIP_TIMEOUT))
     {
-      std::cerr << __FUNCTION__ << " Timeout" << std::endl;
+      std::cerr << __FUNCTION__ << " Timeout" << '\n';
       break;
     }
     if (m_link.read(receiveBuffer) > 16) // 16 bytes minsize

@@ -17,11 +17,66 @@ Supported protocols are:
 * the SICK Blob format for streaming data.
 
 
+== License
+
+The source code is released under link:./LICENSE[The Unlicense].
+
+
+== Supported environments
+
+The samples in this repository have been tested with the following platforms:
+
+[cols="1,1,1,1", options="header"]
+|===
+| **Platform**
+| **Compiler**
+| **Version**
+| **Notes**
+
+| Windows
+| Visual Studio / Build Tools
+| 2022 (MSVC = 19.3x)
+|
+
+| Windows
+| gcc (mingw64)
+| 14.2.0 (>= 11.1)
+|
+
+| Linux inside WSL2
+| gcc
+| 11.4.0 (>= 11.1)
+| finding_and_connecting_devices (AutoIP) and image_streaming_and_storing (UDP) will not work with default WSL2 configuration (NAT)
+
+|===
+
+
+== Supported Hardware
+
+[cols="1,1,1,1", options="header"]
+|===
+| **device name**
+| **part no.**
+| **description**
+| **firmware version**
+
+| Visionary-T Mini CX (pass:[V3S105-1AAAAAA])
+| link:https://www.sick.com/de/en/catalog/products/machine-vision-and-identification/machine-vision/visionary-t-mini/v3s105-1aaaaaa/p/p665983[1112649]
+| 3D time-of-flight camera
+| 2.1.0 & ✔ 3.0.0
+
+| Visionary-S CX (pass:[V3S102-1AAAAAA], pass:[V3S102<area>-1AABAAB])
+| link:https://www.sick.com/de/en/catalog/products/machine-vision-and-identification/machine-vision/visionary-s/v3s102-1aaaaaa/p/p602149[1090184] link:https://www.sick.com/de/en/catalog/products/machine-vision-and-identification/machine-vision/visionary-s/v3s102-1aabaab/p/p651629[1090185]
+| 3D structured light stereovision camera with RGB data
+| 6.0.0 & ✔ 6.5.0
+|===
+
+
 == Building
 
-The module uses the https://cmake.org/[CMake] build system version 3.16 or higher.
-Beside the standard options like https://cmake.org/cmake/help/v3.16/variable/CMAKE_BUILD_TYPE.html[`CMAKE_BUILD_TYPE`] for code generation and
-the https://cmake.org/cmake/help/v3.16/module/GNUInstallDirs.html[installation directory options]
+The module uses the https://cmake.org/[CMake] build system version 3.24 or higher.
+Beside the standard options like https://cmake.org/cmake/help/v3.24/variable/CMAKE_BUILD_TYPE.html[`CMAKE_BUILD_TYPE`] for code generation and
+the https://cmake.org/cmake/help/v3.24/module/GNUInstallDirs.html[installation directory options]
 it supports the following additional CMake build options:
 
 [cols="0m,4d,1d,0d"]
@@ -31,14 +86,14 @@ it supports the following additional CMake build options:
 | BUILD_SHARED_LIBS | Build using shared libraries | `ON`, `OFF` | `OFF`
 | VISIONARY_BASE_ENABLE_AUTOIP | Enables the SOPAS Auto-IP device scan code (needs boost's ptree and foreach) |`ON`, `OFF` | `ON`
 | VISIONARY_BASE_ENABLE_UNITTESTS | Enables google-test based unit tests | `ON`, `OFF` | `OFF`
-| VISIONARY_BASE_ENABLE_AUTOIP | Enables the SOPAS Auto-IP device scan code (needs boost's ptree and foreach) | `ON`, `OFF` | `ON`
 | VISIONARY_BASE_USE_BUNDLED_BOOST | Uses the bundled Boost implementation | `ON`, `OFF` | `ON`
 |===
 
+[NOTE]
+====
+If you run into WARNING_AS_ERROR issue with some compiler (which is enabled per default) just use the cmake override ```--compile-no-warning-as-error``` when configuring the project.
+====
 
-== License
-
-The source code is released under link:./LICENSE[The Unlicense].
 
 == Support
 
