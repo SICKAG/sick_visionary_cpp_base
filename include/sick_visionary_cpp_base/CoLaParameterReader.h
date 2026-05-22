@@ -61,7 +61,7 @@ public:
   int32_t readDInt();
 
   /// <summary>
-  /// Read a unsigned int (32 bit) and advances position by 4 bytes.
+  /// Read a unsigned double int (32 bit) and advances position by 4 bytes.
   /// Throws an std::out_of_range exception if CoLaCommand is invalid
   /// </summary>
   uint32_t readUDInt();
