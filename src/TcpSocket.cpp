@@ -239,7 +239,13 @@ ITransport::send_return_t TcpSocket::send(const char* pData, size_t size)
 {
   const bufsize_t eff_buflen = castClamped<bufsize_t>(size);
   // send buffer via TCP socket
+  // MSG_NOSIGNAL prevents SIGPIPE when the remote end has closed the connection;
+  // instead ::send() returns -1 with errno==EPIPE, which can be handled gracefully.
+#ifdef MSG_NOSIGNAL
+  return ::send(m_pSockRecord->socket(), pData, eff_buflen, MSG_NOSIGNAL);
+#else
   return ::send(m_pSockRecord->socket(), pData, eff_buflen, 0);
+#endif
 }
 
 ITransport::recv_return_t TcpSocket::recv(ByteBuffer& buffer, std::size_t maxBytesToReceive)

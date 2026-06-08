@@ -75,6 +75,14 @@ uint32_t CoLaParameterReader::readUDInt()
   return value;
 }
 
+uint64_t CoLaParameterReader::readULInt()
+{
+  checkSize(m_currentPosition, 8u);
+  const auto value = readUnalignBigEndian<uint64_t>(&m_command.getBuffer()[m_currentPosition]);
+  m_currentPosition += 8;
+  return value;
+}
+
 float CoLaParameterReader::readReal()
 {
   checkSize(m_currentPosition, 4u);
