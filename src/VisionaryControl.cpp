@@ -68,6 +68,8 @@ bool VisionaryControl::open(const std::string&        hostname,
   m_sessionTimeout   = sessionTimeout;
   m_connectTimeout   = connectTimeout;
   m_autoReconnect    = autoReconnect;
+  m_pControlSession  = nullptr;
+  m_pAuthentication  = nullptr;
   m_pProtocolHandler = nullptr;
   m_pTransport       = nullptr;
 

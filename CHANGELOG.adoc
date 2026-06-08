@@ -6,6 +6,31 @@ For a detailed view of what was changed, please refer to the repository's commit
 This project utilizes semantic versioning.
 
 
+== 1.1.1
+
+=== Changed
+
+=== Fixed
+
+* prevent SIGPIPE on disconnected tcp socket
+* clear stale reconnect state before reopen
+
+=== Added
+
+* add readULInt to ParameterReader
+
+=== Removed
+
+=== Known Issues
+
+=== Compatibility
+
+=== Supported devices
+
+* Visionary-T Mini CX (V3S105-1AAAAAA) 4.0.0
+* Visionary-S CX (V3S102-1AAAAAA and V3S102-1AABAAB) 6.5.2
+
+
 == 1.1.0
 
 === Changed

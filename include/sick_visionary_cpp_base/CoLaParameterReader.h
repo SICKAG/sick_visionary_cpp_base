@@ -67,6 +67,12 @@ public:
   uint32_t readUDInt();
 
   /// <summary>
+  /// Read a unsigned long int (64 bit) and advances position by 8 bytes.
+  /// Throws an std::out_of_range exception if CoLaCommand is invalid
+  /// </summary>
+  uint64_t readULInt();
+
+  /// <summary>
   /// Read a IEEE-754 single precision (32 bit) and advances position by 4 bytes.
   /// Throws an std::out_of_range exception if CoLaCommand is invalid
   /// </summary>
